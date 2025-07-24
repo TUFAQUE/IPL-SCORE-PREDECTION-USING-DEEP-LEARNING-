@@ -92,8 +92,8 @@ This project aims to predict the **final score** of an IPL T20 match using deep 
 
 ## 👨‍💻 Author
 
-**Tufaque A. Sayyed**  
-AI & ML Engineer | Data Scientist |Ai Agent Builder
+**Tufaque Sayyed**  
+AI & ML Engineer | Data Scientist | Ai Agent Builder
 
 📧 Email: tufaquesayyed@gmail.com  
 🔗 [GitHub](https://github.com/TUFAQUE) | [LinkedIn](https://www.linkedin.com/in/tufaque-sayyed-843596364/)
