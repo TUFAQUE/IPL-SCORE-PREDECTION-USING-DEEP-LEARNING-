@@ -81,12 +81,6 @@ This project aims to predict the **final score** of an IPL T20 match using deep 
 
 ---
 
-## 📷 Screenshots
-
-> Add images if available — you can include plots showing loss curves, widget UI, etc.
-
----
-
 ## 📌 Future Improvements
 
 - Deploy as a web app using **Streamlit or Flask**
@@ -100,6 +94,7 @@ This project aims to predict the **final score** of an IPL T20 match using deep 
 
 **Tufaque A. Sayyed**  
 AI & ML Engineer | Data Scientist |Ai Agent Builder
+
 📧 Email: tufaquesayyed@gmail.com  
 🔗 [GitHub](https://github.com/TUFAQUE) | [LinkedIn](https://www.linkedin.com/in/tufaque-sayyed-843596364/)
 
