@@ -1,165 +1,134 @@
-🧠 IPL Score Prediction using Deep Learning
-Last Updated: 24 July, 2025
+# 🏏 IPL Score Prediction using Deep Learning
 
-In today’s fast-paced cricket environment, every decision—especially around scoring—can define the match's fate. Using deep learning, this project predicts IPL match scores in real-time, offering reliable insights to fans, broadcasters, and analysts.
+This project aims to predict the **final score** of an IPL T20 match using deep learning techniques. The model is trained on historical IPL data and takes real-time match inputs to provide accurate score predictions.
 
-🚀 Why Deep Learning for Score Prediction?
-Unlike traditional machine learning models, deep learning identifies intricate patterns from large datasets and can adaptively learn the game dynamics—batting styles, bowling performance, match venues, etc. It allows us to predict scores with better accuracy and handle nonlinear dependencies.
+---
 
-📦 Project Structure
-bash
-Copy
-Edit
-├── IPL_Score_Prediction.ipynb       # Jupyter notebook containing the full pipeline
-├── ipl_data.csv                     # Dataset used for training
-├── README.md                        # Project overview
-└── final_model.h5 (optional)        # Saved trained DL model
-📚 Step-by-Step Implementation
-1. 🛠 Installing Libraries
-The following libraries were used:
+## 🚀 Features
 
-python
-Copy
-Edit
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn import preprocessing
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import MinMaxScaler, LabelEncoder
-import keras
-import tensorflow as tf
-2. 📂 Loading the Dataset
-The dataset (2008–2017) includes:
+- Predicts **final match score** based on:
+  - Batting & Bowling Teams
+  - Venue
+  - Current Score
+  - Overs Completed
+  - Wickets Fallen
+  - Current Batsmen & Bowler
+- Trained using a **Deep Neural Network** built with TensorFlow & Keras
+- Clean and efficient **data preprocessing**
+- Interactive prediction using `ipywidgets`
+- 📊 Model performance visualization and accuracy analysis
 
-Teams
+---
 
-Venue
+## 🧪 Tech Stack
 
-Batsmen & Bowlers
+| Technology     | Purpose                              |
+|----------------|--------------------------------------|
+| Python         | Core Programming Language            |
+| Pandas         | Data Handling                        |
+| NumPy          | Numerical Computation                |
+| TensorFlow/Keras| Deep Learning Model                 |
+| Matplotlib     | Data Visualization                   |
+| ipywidgets     | Interactive Prediction Widget        |
 
-Overs, Runs, Wickets, Striker Info
+---
 
-python
-Copy
-Edit
-ipl = pd.read_csv('ipl_data.csv')
-3. 📊 Exploratory Data Analysis (EDA)
-Visualized number of matches at each venue
+## 📂 Dataset
 
-Top 10 Batsmen by runs
+- **File:** `ipl_data.csv`
+- Contains IPL match data including teams, players, runs, wickets, and venues.
+- Basic data preprocessing and encoding done before feeding into the model.
 
-Top 10 Bowlers by wickets
+---
 
-Uses matplotlib and seaborn for insightful plots.
+## 🧠 Model Architecture
 
-4. 🔣 Label Encoding
-Categorical features like teams, venues, players are encoded for neural networks.
+- **Input Layer:** One-hot encoded categorical + numerical features
+- **Hidden Layers:** 3 Dense layers with ReLU activation
+- **Output Layer:** Single neuron for score prediction (Regression)
+- **Optimizer:** Adam
+- **Loss Function:** Mean Squared Error (MSE)
 
-python
-Copy
-Edit
-label_encoders = {}
-for col in ['bat_team', 'bowl_team', 'venue', "batsman", "bowler"]:
-    le = LabelEncoder()
-    data_encoded[col] = le.fit_transform(data_encoded[col])
-    label_encoders[col] = le
-5. 🎯 Feature Selection & Correlation Analysis
-Redundant or highly correlated features like non-striker, runs_last_5, wickets_last_5 were removed using heatmaps.
+---
 
-6. 🔀 Train-Test Split
-Used train_test_split() with:
+## 📊 Results
 
-70% training
+- Achieved low **MSE loss** and high predictive accuracy on validation set
+- Tested using various match situations
+- Predictions are close to actual final scores in multiple test cases
 
-30% testing
+---
 
-random_state=42 for reproducibility
+## 🕹 How to Use
 
-7. 📏 Feature Scaling
-MinMax scaling ensures all input features are normalized before training:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/TUFAQUE/IPL-Score-Prediction.git
+   cd IPL-Score-Prediction
+   ```
 
-python
-Copy
-Edit
-scaler = MinMaxScaler()
-X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)
-8. 🧠 Neural Network Model
-A Deep Learning Regressor built using TensorFlow + Keras:
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-python
-Copy
-Edit
-model = keras.Sequential([
-    keras.layers.Input(shape=(X_train_scaled.shape[1],)),
-    keras.layers.Dense(512, activation='relu'),
-    keras.layers.Dense(216, activation='relu'),
-    keras.layers.Dense(1, activation='linear')
-])
+3. Run the Jupyter Notebook:
+   ```bash
+   jupyter notebook IPL_Score_Prediction.ipynb
+   ```
 
-huber_loss = tf.keras.losses.Huber(delta=1.0)
-model.compile(optimizer='adam', loss=huber_loss)
-9. 🏋️‍♂️ Model Training
-Trained for 10 epochs using batch_size=64, and plotted loss vs validation loss:
+4. Scroll to the bottom and interact with the `ipywidgets` to try different match scenarios!
 
-python
-Copy
-Edit
-model.fit(X_train_scaled, y_train, epochs=10, batch_size=64, validation_data=(X_test_scaled, y_test))
-🔍 Evaluation Metrics
-Predicted on the test set and evaluated using:
+---
 
-python
-Copy
-Edit
-from sklearn.metrics import mean_absolute_error
-mae = mean_absolute_error(y_test, predictions)
-# MAE ≈ 14.41
-🧪 Final Results
-📈 Mean Absolute Error: ~14.41
-🧠 Model Type: Deep Neural Network
-🏏 Predicted Scores: Close to real-world IPL scores, tested on CSK vs RCB at Chinnaswamy Stadium
-✅ Accuracy: Very good on unseen data
+## 📷 Screenshots
 
-🧩 Interactive Score Prediction Widget
-An interactive widget was built using ipywidgets in Jupyter to allow users to simulate match conditions and get live score predictions:
+> Add images if available — you can include plots showing loss curves, widget UI, etc.
 
-Dropdowns for Venue, Teams, Batsman, Bowler
+---
 
-Inputs for Overs, Runs, Wickets
+## 📌 Future Improvements
 
-Live Output of Predicted Total Score
+- Deploy as a web app using **Streamlit or Flask**
+- Add real-time data scraping from live IPL matches
+- Integrate player form & weather data
+- Visual UI for non-technical users
 
-python
-Copy
-Edit
-display(venue, batting_team, bowling_team, striker, bowler,
-        runs, wickets, overs,
-        striker_ind,
-        predict_button, output)
-🛠 Tools Used
-Tool	Purpose
-Pandas & NumPy	Data Manipulation
-Matplotlib & Seaborn	Data Visualization
-Scikit-learn	Preprocessing & Evaluation
-Keras / TensorFlow	Deep Learning Modeling
-Ipywidgets	UI Widgets in Jupyter
+---
 
-💡 Future Scope
-Deploy this as a web app using Streamlit or Flask
+## 👨‍💻 Author
 
-Add live data scraping from APIs for real-time prediction
+**Tufaque A. Sayyed**  
+AI & ML Engineer | Data Scientist |Ai Agent Builder
+📧 Email: tufaquesayyed@gmail.com  
+🔗 [GitHub](https://github.com/TUFAQUE) | [LinkedIn](https://www.linkedin.com/in/tufaque-sayyed-843596364/)
 
-Incorporate more features like player form, pitch type, match day weather
+---
 
-👨‍💻 Author
-Tufaque A. Sayyed
-AI & ML Engineer | Data Scientist | Ai Agent Builder
-📧 Email: tufaquesayyed@gmail.com
-🔗 GitHub | LinkedIn
+## 📄 License
 
-🌟 Star This Repo
-If this helped you, give it a ⭐ on GitHub and share with your fellow data science enthusiasts.
+This project is licensed under the **MIT License** — feel free to use, modify, and distribute it with proper attribution.
+
+> See the [LICENSE](LICENSE) file for full license text.
+
+---
+
+## 📁 Folder Structure
+
+```
+├── IPL_Score_Prediction.ipynb     # Jupyter Notebook with code and predictions
+├── ipl_data.csv                   # Dataset file
+├── requirements.txt               # Python dependencies (to be added)
+└── README.md                      # Project documentation
+```
+
+---
+
+## 🙌 Support
+
+If you like this project, don’t forget to ⭐ star the repo and follow for more!
+
+```bash
+git clone https://github.com/TUFAQUE/IPL-Score-Prediction.git
+```
 
